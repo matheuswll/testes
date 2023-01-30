@@ -1,0 +1,88 @@
+function adicionarValorVisor(valor){
+    console.log("Adicionou o texto "+valor+" no visor.")
+    document.getElementById("visor").value+=valor
+}
+
+function limparValorVisor(){
+document.getElementById("visor").value=""
+}
+
+function calcular(){
+    console.log("função que calcula")
+
+    var resultado=""
+    var operacao=""
+    var valor1=""
+    var valor2=""
+
+    var conteudoVisor=document.getElementById("visor").value
+
+    for(var indice=0; indice<conteudoVisor.length; indice++) {
+        var valorIndice=conteudoVisor[indice]
+
+        if((isNaN(valorIndice))&&(valorIndice!=".")){
+            if (valorIndice=="+"){
+                operacao=valorIndice
+            } else if (valorIndice=="-") {
+                operacao=valorIndice
+            } else if (valorIndice=="*"){
+                operacao=valorIndice
+            } else if (valorIndice=="/"){
+                operacao=valorIndice
+            } else if (operacao==""){
+                valor1 += valorIndice
+            } else {
+                valor2+=valorIndice
+            }
+
+            if (isNaN(conteudoVisor[indice+1])){
+                if ((valor1!="")&&(valor2!="")&&(operacao!="")){ 
+                    if (valorIndice=="+"){
+                        resultado=operacaoSoma(parseFloat(valor1),parseFloat(valor2))
+                    } else if (valorIndice=="-") {
+                        resultado=operacaoSubtracao(parseFloat(valor1),parseFloat(valor2))
+                    } else if (valorIndice=="*"){
+                        resultado=operacaoMultiplicacao(parseFloat(valor1),parseFloat(valor2))
+                    } else if (valorIndice=="/"){
+                        resultado=operacaoDivisao(parseFloat(valor1),parseFloat(valor2))
+                    }
+                }
+            }
+
+            valor1=resultado
+            valor2=""
+            if(resultado!=""){
+                log(conteudoVisor+"="+resultado)
+                exibirResultado(resultado)
+            }
+        }
+    }
+    
+}
+
+function operacaoSoma(valor1,valor2){
+    return valor1+valor2
+}
+
+function operacaoSubtracao(valor1,valor2){
+    return valor1-valor2
+}
+
+function operacaoMultiplicacao(valor1,valor2){
+    return valor1*valor2
+}
+
+function operacaoDivisao(valor1,valor2){
+    return valor1/valor2
+}
+
+function exibirResultado(valor) {
+    document.getElementById("visor").value=valor
+}
+
+function log(valor){
+    if (valor!="") {
+        var textoLog="<p>"+valor+"</p>"+document.getElementById("conteudoLog").innerHTML
+        document.getElementById("conteudoLog").innerHTML=textoLog
+    }
+}
